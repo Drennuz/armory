@@ -33,13 +33,13 @@ elif len(sys.argv) == 3 and sys.argv[1] == 'client':
     s.connect((HOST, PORT))
 
     sent = 0
-    while sent < bytes: # client send all data first then recv, while server keeps sending back --> deadlock
+    while sent < bytes: # client send all data first then recv, while server keeps sending back --> deadlock when buffer filled
         s.sendall(message)
         sent += len(message)
         print('\r%d bytes sent' % sent)
         sys.stdout.flush()
     print()
-    s.shutdown(socket.SHUT_WR)
+    s.shutdown(socket.SHUT_WR) # will write no more data
     print('Receiving all the data the server sends back')
 
     received = 0
