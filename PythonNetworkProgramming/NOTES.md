@@ -16,5 +16,22 @@ Chapter 4 Socket names and DNS
     socket.getservbyname('www')
     socket.getservbyport(80)
 ```
+2. DNS :
+
+use raw DNS for SMTP: connect to MX records
+```
+
+    whois python.org
+```
+3. VirtualEnv (Python 2.x):
+```
+
+    virtualenv --no-site-packages dns #create virtualenv
+    cd dns/
+    source ./bin/activate #activate
+    pip install xxx
+    python -c xxx # load package into python
+    deactivate
+```
 
     
