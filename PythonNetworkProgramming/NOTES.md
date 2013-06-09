@@ -11,5 +11,10 @@ Chapter 4 Socket names and DNS
     ftpca = infolist[0]
     s = socket.socket(*ftpca[0:3])
     s.connect(ftpca[4])
+
+    socket.getprotobyname('UDP')
+    socket.getservbyname('www')
+    socket.getservbyport(80)
 ```
 
+    
