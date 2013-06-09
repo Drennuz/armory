@@ -16,6 +16,7 @@ Chapter 4 Socket names and DNS
 
 getaddrinfo :
 
+```python
      infolist = socket.getaddrinfo('mit.edu', 'www')
      ftpca = infolist[0]
      s = socket.socket(*ftpca[0:3])
@@ -23,6 +24,7 @@ getaddrinfo :
      socket.getprotobyname('UDP')
      socket.getservbyname('www')
      socket.getservbyport(80)
+```
 
 DNS :
 
@@ -66,3 +68,22 @@ Raw socket exceptions:
 * socket.gaierror
 * socket.error
 * socket.timeout
+
+Python exception:
+```python
+try:
+    ...
+except:
+    ...
+else:
+    ...
+finally:
+    ...
+```
+```python
+class MyError(Exceptions):
+    def __init__(self, value):
+        self.value = value
+    def __str__(self, value):
+        return repr(self.value)
+```
