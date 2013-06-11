@@ -112,21 +112,21 @@ Chapter 7 Server Architecture
 * benchmarking: funkload
 
 * event driven servers: handle multiple clients inter-leavingly
-`select` module, `poll` object. 
-`poll.poll()` is still blocking
+    `select` module, `poll` object. 
+    `poll.poll()` is still blocking
 
 * parallelism: (can base on a single blocking logic)
 
-thread-based: single processor; data shared automatically; Global Interpreter Lock prevents >= 2 threads under C Python (still ok for multiple I/O events -- GIL release Python interpreter upon reaching an external I/O call like `recv()` `accept()` `send()`
+    thread-based: single processor; data shared automatically; Global Interpreter Lock prevents >= 2 threads under C Python (still ok for multiple I/O events -- GIL release Python interpreter upon reaching an external I/O call like `recv()` `accept()` `send()`
 
-process-based: multiple processors
+    process-based: multiple processors
 
-`multiprocessing`, `thread` module:
-```python
-worker = Thread(target = function, args = ()) | Process(target = function, args = ())
-worker.daemon = True
-worker.start() # start running the target function passed 
-```
+    `multiprocessing`, `thread` module:
+    ```python
+    worker = Thread(target = function, args = ()) | Process(target = function, args = ())
+    worker.daemon = True
+    worker.start() # start running the target function passed 
+    ```
 
 * cucurrent programming:
-where threads/processes communicate to each other
+    where threads/processes communicate to each other
