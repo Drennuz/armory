@@ -1,0 +1,9 @@
+#!/Users/joy/Code/projects/books/PythonNetworkProgramming/chap07/funkload/bin/python
+# EASY-INSTALL-ENTRY-SCRIPT: 'funkload==1.16.1','console_scripts','fl-run-test'
+__requires__ = 'funkload==1.16.1'
+import sys
+from pkg_resources import load_entry_point
+
+sys.exit(
+   load_entry_point('funkload==1.16.1', 'console_scripts', 'fl-run-test')()
+)
