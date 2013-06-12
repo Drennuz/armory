@@ -59,7 +59,7 @@ Framing: when is it safe for receiver to stop calling `recv()`?
 
 Options:
 * use delimitors
-* Prefix each message with length
+* Prefix each message with length (<i>chunk-encoding</i>)
 
 JSON: sending data between different languages
 compression: zlib; self-framing
@@ -135,23 +135,73 @@ Chapter 7 Server Architecture
 Chap 08 Caches, Message Queues, Map-Reduce
 ------
 * Memcached
+    
     key-value cache (like dict) distributed & shared among servers; combine free RAM from servers
+    
     operates on least-recently-used bases (expiration)
     * sharding:
         client hash the key-value to determine which server in the cluster to enquire for the key
     `/usr/share/dict/words`: dictionary file
     * hashlib
+
 * Message Queues
-    message as atomic unit; no more `recv` loops; not only point-to-point
-    coordinate different parts of application (perhaps different hardware/languages/platforms)
-    hiding number of servers or processes --> allow server disconnect/upgrade/reboot
-    * pipe line
-    * publisher - subscriber
-    * request - reply
+    
+    Message as atomic unit; no more `recv` loops; not only point-to-point
+    
+    Coordinate different parts of application (perhaps different hardware/languages/platforms)
+    
+    Hiding number of servers or processes --> allow server disconnect/upgrade/reboot
+    
+    * Pipe line
+    * Publisher - subscriber
+    * Request - reply
+
 * Map-Reduce:
-    distributed computing (distributing data & task -- map; collecting results -- result)
+    
+    Distributed computing (distributing data & task -- map; collecting results -- result)
+    
     ```python
+    
     squares = map(lambda n: n*n, range(11)) # map
+    
     reduce(operator.add, squares) # reduce
     ```
+    
     hadoop: user build own server farms
+
+
+Chap 09 HTTP & Chap 09 Screen Scraping
+------
+Headers: `\r\n`, terminated by blank line(`\r\n\r\n`)
+
+URLs: special characters are percent-encoded. `%2-digit-hex`
+
+Constructing URL:
+
+    ```python
+    from urllib.parse import urlencode, ParseResult
+    query = urlencode({'company':'JS', 'report':'employee'})
+    p = ParseResult('https', 'js.com', 'data', None, query, None)
+    p.geturl()
+    ```
+
+urllib.parse:
+* `urljoin` # converting relative to absolute
+* `urlencode`, `ParseResult`, `geturl` # create url
+* `urldefrag` # remove anchor
+
+url open:
+    ```python
+    request = urllib.request.Request(url)
+    request.add_header('User-Agent', 'xx') # can lie
+    urllib.request.urlopen(request)
+    ```
+
+Forms:
+* GET: constructing url, get the page
+* POST: perform action; with side effects
+    * successful POST should redirect; failed should re-display with problem fields highlighted
+
+HEAD: only get head
+
+HTML parser: lxml

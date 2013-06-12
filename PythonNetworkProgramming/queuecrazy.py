@@ -9,18 +9,18 @@ def fountain(url):
         zsock.send(random.choice(words))
         time.sleep(0.4)
 
-def responder(url, function):
+def responder(url, function): # reply sock
     zsock = zcontext.socket(zmq.REP)
     zsock.bind(url)
     while True:
         word = zsock.recv()
         zsock.send(function(word))
 
-def processor(n, fountain_url, responder_urls):
+def processor(n, fountain_url, responder_urls): 
     zpullsock = zcontext.socket(zmq.PULL)
     zpullsock.connect(fountain_url)
 
-    zreqsock = zcontext.socket(zmq.REQ)
+    zreqsock = zcontext.socket(zmq.REQ) # request sock; work with reply sock
     for url in responder_urls:
         zreqsock.connect(url)
 
