@@ -52,7 +52,7 @@ class Scanner:
         return ch
         
 class Token:
-    def __init__(self, token_type, text, line_num, col_num):
+    def __init__(self, token_type, text, line_num = 0, col_num = 0):
         self.token_type = token_type
         self.text = text
         self.line_num = line_num
@@ -125,4 +125,92 @@ class Lexer:
 
         else: # return EOF
             return Token(EOF, c1.text, line_num, col_num)
-                 
+                
+class Node:
+    def __init__(self, token = None):
+        self.level = 0
+        self.token = token
+        self.children = []
+    
+    def addNode(self, node):
+        node.level += self.level + 1 # root.level == 0
+        self.children.append(node)
+
+    def __str__(self):
+        s = '      ' * self.level
+        if self.token is None: # root
+            s += 'ROOT\n'
+        else:
+            s += self.token.text + '\n'
+        for child in self.children:
+            s += str(child)
+        return s
+
+class ParserError(Exception): pass
+
+class Parser:
+    def __init__(self, source):
+        self.lexer = Lexer(source)
+        self.token = None # point to token to be processed
+        self.ast = None # ast is the root node
+   
+    def consume(self, token):
+        if self.found(token):
+            self.getToken()
+        else:
+            raise ParserError("expect " + str(token) + " found:" + str(self.token))
+
+    def found(self, token):
+        return self.token.token_type == token.token_type and self.token.text == token.text
+    
+    def getToken(self):
+        self.token = self.lexer.get()
+        while self.token.token_type == WHITESPACE or self.token.token_type == COMMENT:
+            self.token = self.lexer.get()
+
+    def parse(self):
+        self.program()            
+        return self.ast
+
+    def program(self):
+        node = Node()
+        self.getToken()
+        while self.token.token_type != EOF:
+            self.statement(node)
+        self.ast = node
+    
+    def statement(self, node):
+        identNode = Node(self.token)
+        self.consume(self.token)
+        operatorNode = Node(self.token)
+        self.consume(Token(SYMBOL, '='))
+        node.addNode(operatorNode)
+        operatorNode.addNode(identNode)
+        self.expression(operatorNode)
+        self.consume(Token(SYMBOL, ';'))
+    
+    def expression(self, node):
+        self.term(node)
+        if self.token.token_type == SYMBOL and self.token.text == '/':
+            node.addNode(Node(self.token))
+            self.getToken()
+            self.term(node)
+
+    def term(self, node):
+        '''
+        IDENTIFIER | NUMBER
+        '''
+        if self.token.token_type == NUMBER:
+            self.numLiterals(node)
+        elif self.token.token_type == IDENTIFIER:
+            self.identLiterals(node)
+        else:
+            raise ParserError(str(self.token))
+    
+    def numLiterals(self, node):
+        node.addNode(Node(self.token))
+        self.getToken() 
+
+    def identLiterals(self, node):
+        node.addNode(Node(self.token))
+        self.getToken()

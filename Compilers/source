@@ -6,9 +6,9 @@ It's a bit like a strong-typed Python.
 
 double alpha = 20;
 double beta = 17;
-string resultName = "delta";
+/* string resultName = "delta";*/
 double delta = alpha / beta;
-print('Value of', resultName, "is:");
+/* print('Value of', resultName, "is:"); */
 print(delta);
 print("\n");
 

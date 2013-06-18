@@ -1,10 +1,10 @@
 # main driver program
 # 17-Jun-2013
 
-from classes import Scanner, Lexer
+from classes import Scanner, Lexer, Parser
 from symbols import *
 
-SOURCE = 'source'
+SOURCE = 'source_trial'
 
 def test_scanner():
     print("line\tcol\tcharacter")
@@ -31,6 +31,15 @@ def test_lexer():
             break
     f.close()
 
+def test_parser():
+    print('Printing AST')
+    f = open(SOURCE, 'r')
+    source_text = f.read()
+    parser = Parser(source_text)
+    ast = parser.parse()
+    print(ast)
+    f.close()
+
 if __name__ == '__main__':
-    test_lexer()
+    test_parser()
 

@@ -1,22 +1,35 @@
 Keywords = '''
+if
+else
 print
+return
 '''
 Keywords = Keywords.split()
 
 Types = '''
 double
+string
 '''
 Types = Types.split()
 
 OneCharSymbols = '''
 =
 ( )
-/ 
+/ * + -
 ;
+,
 '''
 OneCharSymbols = OneCharSymbols.split()
 
 TwoCharSymbols = '''
+==
+<=
+>=
+!=
+++
++=
+-=
+||
 '''
 TwoCharSymbols = TwoCharSymbols.split()
 
