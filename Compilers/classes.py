@@ -1,4 +1,5 @@
 from symbols import *
+import re
 
 class Char:
     def __init__(self, text, line_num, col_num, file_pos, EOF = False):
@@ -62,6 +63,15 @@ class Token:
         return str(self.line_num) + '\t' + str(self.col_num) + '\t' + '{:.<12}'.format(self.token_type) + '\t' + repr(self.text)
 
 class LexerError(Exception): pass
+
+COMMENTS_PATTERN = re.compile(r'/\*.*?\*/', re.DOTALL)
+
+class Lexer_re: # Lexer using regular expressions
+    def __init__(self, source_text):
+        self.source = source_text
+
+    def get(self):
+        pass
 
 class Lexer:
     def __init__(self, source_text):

@@ -4,7 +4,7 @@
 from classes import Scanner, Lexer, Parser
 from symbols import *
 
-SOURCE = 'source_trial'
+SOURCE = 'source'
 
 def test_scanner():
     print("line\tcol\tcharacter")
@@ -41,5 +41,5 @@ def test_parser():
     f.close()
 
 if __name__ == '__main__':
-    test_parser()
+    test_lexer()
 
