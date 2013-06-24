@@ -7,12 +7,12 @@ Code snippets from reading / exercises
 -----
 All code are Python 3 compatible. 
 
-Compilers
+[Compilers](http://www.amazon.com/Compilers-Principles-Techniques-Tools-Edition/dp/0321486811/ref=sr_1_1?ie=UTF8&qid=1372101428&sr=8-1&keywords=compilers+principles+techniques+and+tools)
 -----
-Parser/Compiler exercise in Python.
+Parser/Compiler exercise in Python
 
 * [How parsers and compilers work](http://parsingintro.sourceforge.net)
 
-[Project Euler](projecteuler.net)
+[Project Euler](http://projecteuler.net)
 -----
 
