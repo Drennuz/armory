@@ -1,6 +1,6 @@
-Elementary lex/yacc implementation in Python
+Elementary lexer/parser implementation in Python
 
-Lex
+Lexer
 -----
 ### Instructions:
 
@@ -50,9 +50,11 @@ The major function to use is `lexer.token()`, which reads `source` and return on
 ### Limitations
 * Lex cannot process nested structures
 
-Parser
+Basic Parser
 ------
 Parser is dependent on lexer. The main entry point is `parser.prog()` function.
+
+parser_basic.py currently supports arithmatic (without parantheses) operation and print statement.
 
 ```python
 from parser import *
@@ -60,9 +62,11 @@ parser = Parser(lexer)
 print(parser.prog())
 ```
 
-Files:
+Run example.py:
 
-* parser_basic.py implements a parser supporting arithmatic operations and print statements. See example.py
+```python
+python3 example.py text
+```
 
 Notes:
 
