@@ -1,7 +1,7 @@
 Armory
 =====
 
-Code snippets from reading / exercises
+Code snippets from reading / online courses / etc.
 
 [Python Network Programming](http://www.amazon.com/Foundations-Python-Network-Programming-Goerzen/dp/1590593715)
 -----
@@ -14,5 +14,8 @@ Parser/Compiler exercise in Python
 * [How parsers and compilers work](http://parsingintro.sourceforge.net)
 
 [Project Euler](http://projecteuler.net)
+-----
+
+[Real World OCaml](https://realworldocaml.org/beta1/en/html/)
 -----
 
