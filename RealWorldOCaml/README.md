@@ -1,5 +1,6 @@
 [Syntax cheatsheet](http://www.ocamlpro.com/files/ocaml-lang.pdf)
 
+```ocaml
     open Core.Std;;
 
     let even (x:int) : bool = x mod 2 = 0;; (* explicit type annotation optional *)
@@ -17,6 +18,7 @@
     List.exists [1;2;3] (fun x -> x mod 2 = 0);; (* anonymous function *)
 
     let a = ref 0;; (* refs, equal to {contents = 0} *)
+```
 
 ---
 
