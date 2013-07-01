@@ -100,3 +100,11 @@
 * `open`: add the contents of the module to environment. Generally good style to keep `open` to minimum.
 
 * `include`: extend a module
+
+#### 5 Records
+
+* Record patterns are irrefutable, need not to be complete
+
+* `#warnings "+9"`, enable warning for incomplete record pattern matching
+
+* First-class fields: confused
