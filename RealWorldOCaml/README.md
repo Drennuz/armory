@@ -68,3 +68,15 @@
 * Labeled arguments; Optional arguments, must call with label, erased after the first positional argument after optional argument is passed in. Optional arguments at last position cannot be erased at all.
 
 * OCaml completes missing `else` with `unit`
+
+#### 3 Lists and Patterns
+
+* Lists are implemented as singly-linked list.
+
+* Pattern match is a performance win most of the time.
+
+* [List](https://ocaml.janestreet.com/ocaml-core/latest/doc/core_kernel/Core_list.html)
+
+* Tail calls don't require a stack frame due to tail optimization.
+
+     The invocation is a tail call when the caller doesn't do anything with the value returned by the callee except to return it.
