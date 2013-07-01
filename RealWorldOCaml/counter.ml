@@ -1,0 +1,14 @@
+(* chapter 4 modules *)
+open Core.Std
+
+type t = (string * int) list
+
+let empty = []
+
+let to_list x = x
+
+let touch t s = 
+    let counter = match List.Assoc.find t s with
+        None -> 0
+        |Some x -> x
+    in List.Assoc.add t s (counter+1)

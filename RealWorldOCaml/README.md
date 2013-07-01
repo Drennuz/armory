@@ -77,6 +77,26 @@
 
 * [List](https://ocaml.janestreet.com/ocaml-core/latest/doc/core_kernel/Core_list.html)
 
-* Tail calls don't require a stack frame due to tail optimization.
+* Tail calls don't require a stack frame due to tail optimization (reuse caller's stack)
 
      The invocation is a tail call when the caller doesn't do anything with the value returned by the callee except to return it.
+
+#### 4 Files, Modules and Programs
+
+* `_tags` file: specify which compilation options are used for which files for `ocamlbuild`
+
+* `which`: Unix command to identify location of executables
+
+* In general, production executables usually built with native code compiler.
+
+* `ocamlbuild -use-ocamlfind freq.byte`
+
+* Module: `module <name> : <signature> = <implementation>`
+
+* module signature: `module type <name> = sig ... end`
+
+* module implementation: `module <name> = struct ... end`
+
+* `open`: add the contents of the module to environment. Generally good style to keep `open` to minimum.
+
+* `include`: extend a module
