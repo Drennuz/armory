@@ -1,6 +1,6 @@
 [Syntax cheatsheet](http://www.ocamlpro.com/files/ocaml-lang.pdf)
 
-```ocaml
+
     open Core.Std;;
 
     let even (x:int) : bool = x mod 2 = 0;; (* explicit type annotation optional *)
@@ -18,7 +18,14 @@
     List.exists [1;2;3] (fun x -> x mod 2 = 0);; (* anonymous function *)
 
     let a = ref 0;; (* refs, equal to {contents = 0} *)
-```
+
+    List.map ~f: (fun x -> x + 1) [2;4;6];; (* named arguments *)
+
+    let div x = function 
+        0 -> None
+        |y -> Some (x/y);; (* currying; pattern matching using function *)
+
+    let concat ?(sep="") x y = x ^ sep ^ y;; (* optional arguments with default value *)
 
 ---
 
@@ -50,3 +57,14 @@
 
      `ocamlbuild -use-ocamlfind sum.native`
 
+#### 2 Variables and Funtions
+
+* Variables are typically immutable.
+
+* Currying: transform a multi-argument function into a chain of single-argument functions, allow partial application. `->`s are right-associative.
+
+* Declare function with `function`: built-in pattern matching
+
+* Labeled arguments; Optional arguments, must call with label, erased after the first positional argument after optional argument is passed in. Optional arguments at last position cannot be erased at all.
+
+* OCaml completes missing `else` with `unit`
