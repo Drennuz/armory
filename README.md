@@ -16,6 +16,8 @@ Parser/Compiler exercise in Python
 [Project Euler](http://projecteuler.net)
 -----
 
-[Real World OCaml](https://realworldocaml.org/beta1/en/html/)
+[Real World OCaml](http://realworldocaml.org/beta1/en/html/)
 -----
 
+[OCaml 99 Problems](http://ocaml.org/tutorials/99problems.html)
+-----
