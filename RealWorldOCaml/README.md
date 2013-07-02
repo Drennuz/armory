@@ -123,3 +123,11 @@
 * Avoid catch-all cases in pattern matching 
 
 * Record: shared data; Variance: disjunction
+
+#### 7 Exceptions
+
+* error-aware return types(Core): Options, Result,  Error
+
+* Exceptions: `exception`, `raise` (type exn -> 'a, can throw anywhere in a program); `assert`
+
+* Handling exceptions: `try...with Exp...`
