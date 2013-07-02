@@ -108,3 +108,15 @@
 * `#warnings "+9"`, enable warning for incomplete record pattern matching
 
 * First-class fields: confused
+
+#### 6 Variants
+
+* Index:
+    * Combining records and variants
+    * Variants and recursive data structures
+
+* Syntax: `type enum = Basic of int * int | White`
+
+* Avoid catch-all cases in pattern matching 
+
+* Record: shared data; Variance: disjunction
