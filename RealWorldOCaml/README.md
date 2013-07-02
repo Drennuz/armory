@@ -71,6 +71,9 @@
 
 #### 3 Lists and Patterns
 
+* value restriction: only immutable values (numbers | char | function) can have true polymorphism. Function application | mutable data structure is not.
+
+* comma is right-associative: `let x=1 in x+1, let y=2 in y+1,4` evals to `int * (int * int) = (2, (3, 4))`
 * Lists are implemented as singly-linked list.
 
 * Pattern match is a performance win most of the time.

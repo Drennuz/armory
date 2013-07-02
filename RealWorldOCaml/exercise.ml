@@ -27,7 +27,7 @@ let add dict key v = function
     key' -> if key = key' then v else dict key'
 let find dict key = dict key
 
-(* ex3.7 *)
+(* ex3.7  TODO: partial application *)
 
 (* ex3.8 *)
 let hd s = s 0;;
@@ -51,3 +51,57 @@ let check s1 s2 =
     if plaintext s1 = () then
         s2 = String.map (fun c -> List.assoc c mapping) s1
     else raise (Invalid_argument "Not a plaintext string")
+
+(* ex 5.3 *)
+(* can't? function must return the same type *)
+
+(* ex 5.4 *)
+let db = 
+    ["John", "x3456", 50.1;
+    "Jane", "x1234", 107.3;
+    "Joan", "unlisted", 12.7]
+
+let find_salary name = 
+    let rec aux name = function 
+    [] -> raise (Invalid_argument "not found")
+    |(name', _, salary)::t -> if name = name' then salary else aux name t
+    in
+    aux name db
+
+let select f = 
+    let rec aux res f = function
+        [] -> res
+        |h::t ->  if f h then aux (h::res) f t else aux res f t
+    in
+    aux [] f db
+
+(* ex 5.5 TODO*)
+(* f: 'a -> 'a other than identity function? *)
+
+(* ex 5.6 *)
+(* function application is NOT true polymorphism *)
+
+let f (n : int) m = m;;
+let f' = fun x -> f 0 x;; (* f' is now TRUE polymorphism *)
+
+(* ex 5.7 *)
+let append l1 l2 = 
+    let rec aux res l = match l with
+        [] -> res
+        |h::t -> aux (h::res) t
+    in List.rev(aux (List.rev l1) l2)
+
+(* ex 5.8 *)
+let rec exists c l = match l with
+    [] -> false
+    |h::t -> if h = c then true
+             else (if h < c then exists c t else false)
+
+let find_crook l1 l2 l3 = 
+    let rec aux res m1 m2 m3 = match m1 with
+        [] -> res
+        |h::t -> if exists h m2 && exists h m3 then aux (h::res) t m2 m3
+                 else aux res t m2 m3
+    in
+    aux [] l1 l2 l3
+            
