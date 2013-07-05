@@ -132,6 +132,13 @@
 
 * Handling exceptions: `try...with Exp...`
 
-#### 18 Async
+#### 9 Functors
 
+* Functors: function from modules to modules
+    
+    * Usage: extending modules
+
+* functors require explicit type annotation
+
+#### I12 Module system
 
