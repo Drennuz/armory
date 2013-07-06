@@ -42,19 +42,22 @@ let rec merge_sort l = match l with
 
 (* count inversions -- SLOW *)
 
-let merge_and_count l l1 l2 = 
-    let rec aux res count m1 m2 = match !m1, !m2 with
-        _, [] -> count, (List.rev res @ !m1)
-        |[], _ ->count, (List.rev res @ !m2)
-        |h1::t1, h2::t2 -> if h1 < h2 then aux (h1::res) count (ref t1) m2
-            else aux (h2::res) (count + List.length !m1) m1 (ref t2)
-    in let c, m = aux [] 0 l1 l2 in
-    l := m;
-    c
+let merge_and_count l1 l2 = 
+    let rec aux res count m1 m2 = match m1, m2 with
+        _, [] -> count, (List.rev res @ m1)
+        |[], _ ->count, (List.rev res @ m2)
+        |h1::t1, h2::t2 -> if h1 < h2 then aux (h1::res) count t1 m2
+            else aux (h2::res) (count + List.length m1) m1 t2
+    in aux [] 0 l1 l2
 
-let rec count_inversion l = match !l with
+let rec aux_count_inversion l = match l with
     [] -> failwith "empty list"
-    |[_] -> 0
-    |_ -> let n = (List.length !l) / 2 in
-        let l1, l2 = ref (sublist !l 0 n), ref(sublist !l n (List.length !l)) in
-        count_inversion l1 + count_inversion l2 + merge_and_count l l1 l2
+    |[_] as t -> 0, t
+    |_ -> let n = (List.length l) / 2 in
+        let l1, l2 = sublist l 0 n, sublist l n (List.length l) in
+        let c1, ll1 = aux_count_inversion l1 and c2, ll2 = aux_count_inversion l2 in
+        let c, m = merge_and_count ll1 ll2 in
+        c1 + c2 + c, m
+
+let count_inversion l = 
+    let c, m = aux_count_inversion l in c
