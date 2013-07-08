@@ -61,3 +61,6 @@ let rec aux_count_inversion l = match l with
 
 let count_inversion l = 
     let c, m = aux_count_inversion l in c
+
+(* Strassen's Algorithm for matrix multiplication in mat.ml *)
+
