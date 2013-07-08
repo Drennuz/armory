@@ -84,7 +84,6 @@ struct
             res_matrix
 
     (* Strassen's Algorithm *)
-    (* assume square matrices in power-2 dimension *)
     
     (* base case: direct multiplication for dim2 matrices *)
     let mult_dim2 m0 m1 = 
