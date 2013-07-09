@@ -1,3 +1,9 @@
+### Files
+
+`filter.ml`: Different implementations of Array.filter and benchmarking script.
+
+* * *
+
 [Syntax cheatsheet](http://www.ocamlpro.com/files/ocaml-lang.pdf)
 
 
@@ -139,6 +145,12 @@
     * Usage: extending modules
 
 * functors require explicit type annotation
+
+#### 11 Objects
+
+* Objects and classes: dynamic binding; modules: static scoping. 
+
+* Modules can declare types, objects cannot
 
 #### I12 Module system
 
