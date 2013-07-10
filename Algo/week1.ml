@@ -150,11 +150,7 @@ struct
     (* return smallest pair in length-3 array *)
     
     let base_3 a = 
-        let (d0, d1, d2) = (distance a.(0) a.(1), distance a.(0) a.(2), distance a.(1) a.(2)) in
-        let min_d = List.fold_left min d0 [d0;d1;d2] in
-        if d0 == min_d then a.(0), a.(1)
-        else if d1 == min_d then a.(0), a.(2)
-        else a.(1), a.(2)
+        List.fold_left (fun (b0,b1) (c0, c1) -> if distance b0 b1 < distance c0 c1 then (b0, b1) else (c0,c1)) (a.(0), a.(1)) [(a.(0), a.(2));(a.(1), a.(2))]
 
     let split_pair px py delta = 
         let l = Array.length px in
@@ -188,7 +184,7 @@ struct
         else if l == 2 then px.(0), px.(1)
         else if l == 3 then base_3 px
         else
-            let x_l = Array.sub px 0 hl and y_l = filter (fun p -> p.y < py.(hl).y) py and x_r = Array.sub px hl (l-hl) and y_r = filter (fun p -> p.y >= py.(hl).y) py in
+            let x_l = Array.sub px 0 hl and y_l = filter (fun p -> p.x < px.(hl).x) py and x_r = Array.sub px hl (l-hl) and y_r = filter (fun p -> p.x >= px.(hl).x) py in
             let pl0, pl1 = aux_cpair x_l y_l and pr0, pr1 = aux_cpair x_r y_r in
             let delta = min (distance pl0 pl1) (distance pr0 pr1) in
             let res = split_pair px py delta in
