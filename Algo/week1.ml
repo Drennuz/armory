@@ -209,7 +209,7 @@ struct
 
 end
 
-let a = Cpair.generate 1000 5000.
+let a = Cpair.generate 5000 20000.
 let (x,y) = Cpair.closest a
 let (m,n) = Cpair.closest_straight a
 
