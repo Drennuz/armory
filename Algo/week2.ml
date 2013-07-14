@@ -4,10 +4,21 @@
 module Qsort : sig
     val max : int
     val generate : int -> int array
-    val sort : 'a array -> unit
+    val sort : int array -> int
+    val read_file : string -> int array 
+    val median : 'a array -> int -> int -> int -> int
 end = 
 struct
     let max = 100000
+    
+    let read_file fname = 
+        let f = open_in fname in
+        let rec aux res = 
+        try 
+            aux ((Scanf.fscanf f "%d\n" (fun x -> x)) :: res)
+        with End_of_file -> Array.of_list (List.rev res)
+        in aux []
+    
     let generate n = 
         Random.self_init ();
         let a = Array.make n 0 in
@@ -20,13 +31,20 @@ struct
         let temp = a.(i) in
         a.(i) <- a.(j);
         a.(j) <- temp;;
+    
+    let median a i j k = 
+        if (a.(i) <= a.(j) && a.(j) <= a.(k)) || (a.(k) <= a.(j) && a.(j) <= a.(i)) then j
+        else if (a.(j) <= a.(i) && a.(i) <= a.(k)) || (a.(k) <= a.(i) && a.(i) <= a.(j)) then i
+        else k
 
     let sort a = 
         Random.self_init ();
+        let ct = ref 0 in
         let rec aux st ed = 
-            if ed - st <= 1 then () 
+            if ed - st <= 1 then !ct 
             else
-                let pivot_i = st + (Random.int (ed - st)) in
+                (ct := !ct + (ed - st - 1);
+                let pivot_i = median a st (ed - 1) (st + (ed-st-1)/2)  in
                 let pivot = a.(pivot_i) in(
                     swap st pivot_i a;
                     let i = ref (st + 1) in
@@ -34,8 +52,9 @@ struct
                         if a.(j) < pivot then (swap !i j a; incr i) 
                     done;
                     swap st (!i-1) a;
-                    aux st (!i-1);
-                    aux !i ed;
-                )
+                    ignore (aux st (!i-1));
+                    ignore (aux !i ed);
+                );
+                !ct)
         in aux 0 (Array.length a)
 end
