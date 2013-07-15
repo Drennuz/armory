@@ -77,13 +77,13 @@ let rec find dic key = match dic with
             else find rt key
 
 (* ex 6.6 *)
-type vertex = int
+(*type vertex = int
 type graph = (vertex, vertex list) dictionary
 
 let reachable g v1 v2 = 
     let v1_next = find g v1 in
     List.exists (fun x -> x = v2) v1_next
-
+*)
 (* ex 6.7 *)
 type 'a tree = Leaf | Node of 'a * 'a tree * 'a tree
 type comparison = LessThan | Equal | GreaterThan
@@ -123,7 +123,7 @@ let heap_from_list l = List.fold_left insert empty l
 let heapsort l = 
     let rec aux res = function
         Leaf -> res
-        |_ as h -> aux (findmin h :: res) (deletemin h) in
+        |Node(e, l, r) as h -> aux (e :: res) (meld l r) in
     aux [] (heap_from_list l)
 
 

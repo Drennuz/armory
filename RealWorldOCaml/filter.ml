@@ -1,3 +1,4 @@
+
 (* benchmarking different implementations for Array.filter *)
 
 (* to build: 
@@ -44,10 +45,10 @@ struct
             done;
         res
 
-end;;
+end
 
 (* Core  *)
-open Core.Std_kernel;;
+open Core.Std;;
 
 (* test case *)
 
@@ -60,7 +61,7 @@ for i = 0 to n-1 do
     a.(i) <- Random.int max
 done
 
-let f x = x mod 2 = 0;;
+let f x = x mod 2 = 0
 
 (* benchmark *)
 
@@ -70,4 +71,4 @@ open Core_bench.Std;;
   Bench.Test.create ~name:"to_list" (fun () -> ignore (Filter.filter_list f a));
   Bench.Test.create ~name:"stack" (fun () -> ignore (Filter.filter_stack f a));
   Bench.Test.create ~name:"Core" (fun () -> ignore (Array.filter f a))]
-|> Bench.bench;;
+|> Bench.bench
