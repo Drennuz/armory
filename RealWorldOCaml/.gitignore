@@ -2,3 +2,6 @@
 *.native
 *.byte
 _build/
+.DS_Store
+_tags
+*rbtree2*
