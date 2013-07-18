@@ -1,3 +1,8 @@
 *.swp
 *.txt
 *temp*
+_build/
+_tags
+*.byte
+.DS_Store
+__pycache__/
