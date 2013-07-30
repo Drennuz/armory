@@ -1,4 +1,5 @@
-(* 21-30 in OCaml 99 *)
+(* 21-39 in OCaml 99 
+finish section number *)
 
 (* 21 insert an element at a given position *)
 
@@ -55,6 +56,21 @@ let permutation l =
 
 (* 26 generate the combinations of K distinct objects chosen from the N elements of a list *)
 
+let rec extract n l = 
+    if n = 1 then (
+        let rec aux res m = match m with
+            h :: t -> aux (List.append res [[h]]) t
+            |[] -> res
+        in aux [] l
+    ) else (let lb = extract (n-1) l in
+        let res = ref [] in
+        for i = 0 to List.length l - 1 do
+            for j = 0 to List.length lb - 1 do
+                if (not (List.mem (List.nth l i) (List.nth lb j))) then res := List.append !res ([(List.nth l i) :: (List.nth lb j)])
+            done
+        done;
+        !res)
+
 (* 27 *)
 
 (* 28 *)
@@ -74,6 +90,12 @@ let prime n =
             true
         with NotPrime -> false
     )
+
+let is_prime n = 
+    let n = abs n in
+    let rec is_not_divisor d = 
+    d * d > n || (n mod d <> 0 && is_not_divisor (d+1)) in
+    n <> 1 && is_not_divisor 2
 
 (* generate a list of prime numbers <= n *)
 type number = {value : int; mutable prime : bool};;
@@ -107,3 +129,90 @@ let rec gcd m n =
 
 let coprime x y = 
     gcd x y = 1
+
+(* 32 Euler's totient function phi(m) #positive integers that are coprime *)
+
+let phi n = 
+    let rec aux acc d = 
+        if d < n then let e = if coprime d n then 1 else 0 in aux (acc + e) (d+1)
+        else acc
+    in
+    if n = 1 then 1
+    else aux 0 1
+
+(* 33 prime factors of a given positive integer *)
+let nactor n = 
+    let primes = generate_prime n in
+    let rec aux res k ps = 
+        if prime k then List.rev (k::res)
+        else(
+            match ps with
+            [] -> res
+            |h :: t as l -> if k mod h = 0 then aux (h::res) (k / h) l else aux res k t
+        )
+    in aux [] n primes
+
+let factors n = 
+    let rec aux d k =
+        if k = 1 then [] else
+        if k mod d = 0 then d :: (aux d (k/d)) else aux (d+1) k
+    in
+    aux 2 n
+
+(* 34 prime factors with multiplicity *)
+let mfactors n = 
+    let fs = factors n in
+    let rec aux current count res l = match l with
+        [] -> List.rev ((current, count) :: res)
+        |h :: t -> if current = h then aux current (count+1) res t 
+                else aux h 1 ((current,count)::res) t
+    in match fs with
+        [] -> [] 
+        |h :: t -> aux h 1 [] t
+
+(* 35 improved Euler's phi function *)
+let phi_improved n = 
+    let fs = mfactors n in
+    let rec aux res l = match l with
+        [] -> int_of_float res
+        |(p,m) :: t -> aux (res *. (float_of_int (p-1)) *. (float_of_int p) ** (float_of_int (m-1))) t in
+    aux 1. fs
+
+(* 36 benchmark two phi *)
+let timeit f n =
+    let x = Sys.time () in
+    let y = ignore (f n) in
+    Sys.time () -. x
+
+(* 37 a list of prime numbers *)
+let rec all_primes l u = 
+    if l > u then [] else
+    let rest = all_primes (l+1) u in 
+    if prime l then l :: rest else rest
+
+(* 38 Goldbach's conjecture: two primes sum up to n *)
+exception Break
+
+let goldbach n = 
+    let rec aux d = 
+    if is_prime d && is_prime (n-d) then (d, n-d)
+    else aux (d+1) in
+    aux 2
+
+(* 39 A list of goldbach compositions *)
+let goldbach_list l u = 
+    let rec aux res d = 
+        if d > u then List.rev res 
+        else if d mod 2 = 0 then 
+            let p = goldbach d in
+            aux ((d, p) :: res) (d+2)
+        else aux res (d+1) in
+    aux [] l
+
+let rec rgoldbach_list l u = 
+    if l > u then []
+    else if l mod 2 = 0 then (l, goldbach l) :: (goldbach_list (l+2) u)
+    else goldbach_list (l+1) u
+
+let goldbach_limit l u t = 
+    List.filter (fun (_, (t1, t2)) -> t1 >= t && t2 >= t) (goldbach_list l u)
