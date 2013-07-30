@@ -154,3 +154,14 @@
 
 #### I12 Module system
 
+#### Async
+
+* Useful functions:
+    * Reader.file_contents; Writer.save;
+    * named parameters: ~
+    * String.split
+    * >>= : pipe Deferred.t to fun t -> Deferred.t; Deferred.bind
+    * >>| : pipe Deferred.t to fun a -> b; Deferred.map
+    * return: wrapping to Deferred value
+
+
