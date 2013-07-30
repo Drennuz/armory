@@ -164,4 +164,10 @@
     * >>| : pipe Deferred.t to fun a -> b; Deferred.map
     * return: wrapping to Deferred value
 
+#### I11 File system
 
+* can define transparent type in interface, implementation must be the same.
+* open: expose a namespace, prefer fully qualified name
+* debug: ocamlc -c -g; ocamldebug ./exec
+    * run; step; next; goto; list; break; print
+* ocamlc -i f.ml # compiler produce interface
