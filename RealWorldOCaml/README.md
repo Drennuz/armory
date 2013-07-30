@@ -164,6 +164,17 @@
     * >>| : pipe Deferred.t to fun a -> b; Deferred.map
     * return: wrapping to Deferred value
 
+#### I10 Inputs and Outputs
+* open_out, open_in, close_out, close_in
+* output_*
+* seek, pos, length
+* flush: buffered I/O
+* String buffers:
+* printf
+    * Printf.fprintf | printf | sprintf | bprintf
+    * Scanf.scanf | sscanf | fscanf; takes in function
+    * [-] [width].[precision] specifier; width/precision can be specified as *
+
 #### I11 File system
 
 * can define transparent type in interface, implementation must be the same.

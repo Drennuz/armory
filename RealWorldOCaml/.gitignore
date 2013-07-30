@@ -5,3 +5,5 @@ _build/
 .DS_Store
 _tags
 *rbtree2*
+data.txt
+b.txt
