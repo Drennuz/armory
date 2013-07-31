@@ -6,3 +6,4 @@ _tags
 *.byte
 .DS_Store
 __pycache__/
+test
