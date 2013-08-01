@@ -182,3 +182,32 @@
 * debug: ocamlc -c -g; ocamldebug ./exec
     * run; step; next; goto; list; break; print
 * ocamlc -i f.ml # compiler produce interface
+
+#### 13 Map and Hashtbl
+
+* Map: key-value pairs 
+    * assoc lists: linear time
+    * map: log(n); hashtbl: constant time
+    * Comparator.Make functor : take in a module, return a Core_kernel.Comparator.t
+        * t, compare, t_of_sexp, sexp_of_t
+        * Comparator.Poly.comparator; Map.Poly.of_alist_exn
+    * useful functions: Map.of_alist_exn ~comparator alist; 
+    * Map.to_tree; almost same performance as map 
+
+* Tree:
+    * map without comparator (still in type; "phantom type parameter")
+
+* Sets: key only; no duplicates
+    * Int.Set.of_list 
+
+* Hashtables key-value pairs
+    * mutable
+    * pass in hashable in Hashtbl.create
+    * Int.Table.create (); Hashtbl.create ~hashable: Int.Hashable
+
+* choose:
+    * Map --> functional; Hashtbl --> imperative
+    * Hashtbl: performance win on updates/lookups
+    * map: keep multiple related key/value pairs, more efficient
+
+* Bench.make_command; Command.run 
