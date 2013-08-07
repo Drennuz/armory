@@ -145,7 +145,7 @@ module Kosaraju = struct
                 match a with
                 None -> ()
                 |Some (x,y) -> (
-                    if x mod 100 = 0 then Printf.printf "%d\n" x; flush stdout;
+                (*    if x mod 100 = 0 then Printf.printf "%d\n" x; flush stdout;*)
                     if y <> x then Stack.push inp.(y) sts.(x);
                     aux ())
                 in
@@ -162,3 +162,13 @@ module Kosaraju = struct
         Array.sort cmp r;
         r
 end
+
+let t0 = Unix.time ();;
+let g = Kosaraju.load "SCC.txt" 875715;;
+Kosaraju.scc g;;
+let r = Kosaraju.tidy (Kosaraju.res g);;
+
+for i = 0 to 5 do
+    Printf.printf "%d\t" r.(i)
+done;;
+Printf.printf "\n%f\n" (Unix.time () -. t0);;
