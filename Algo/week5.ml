@@ -2,7 +2,6 @@
 (* single element first *)
 open Core.Std
 
-
 module type ORDERED = sig
     type t
     val compare : t -> t -> bool (* true if a < b *)
@@ -43,7 +42,7 @@ module Heap (Elem : ORDERED) : (Heap_intf with type elem = Elem.t) = struct
         for i = l/2 downto 0 do
             heapify a i
         done
-    
+     
     (* insert to last then bubble up *)
     let insert e a = 
         let l = Array.length a in
@@ -66,3 +65,53 @@ module Myint = struct
 end
 
 module IHeap = Heap(Myint)
+
+module Dijkstra = struct
+
+    type vertex = {mutable visited : bool; label : string; mutable dist : int; neighbors : (int * int) list}
+    type graph = vertex list
+    type set_vertex = string * int (* label, score *)
+    
+    let build fname = 
+        let lines = In_channel.read_lines fname in
+        let rec aux res l = match l with
+        [] -> ((List.last_exn res).dist <- 0; List.rev res)
+        |h :: t -> 
+            begin
+                let split = String.split ~on:'\t' h in
+                let label = Option.value_exn (List.hd split) and
+                    neighbors = Option.value_exn (List.tl split) in
+                let neighbors = List.filter neighbors (fun s -> String.length s > 0) in
+                let neighbors = List.map neighbors ~f:(fun x -> Scanf.sscanf x "%d,%d" (fun x y -> x,y)) in
+                aux (({visited = false; label = label; dist = 1000000; neighbors = neighbors})::res) t
+            end
+        in aux [] lines
+    
+    (* find min element *)
+    let findMin l = List.fold_left ~init:(0, 100000) ~f:(fun (init_l, init_d) (e_l, e_d) -> if init_d < e_d then (init_l, init_d) else (e_l, e_d)) l
+    
+    (* step function; update dist; return new frontier *)
+    let step g f = 
+        let (min_l, min_d) = findMin !f in
+        if min_l = 0 then () (* empty frontier *)
+        else begin
+            let e = List.nth_exn g (min_l-1) in
+            e.dist <- min_d; e.visited <- true;(* update distance *)
+            Printf.printf "%d %d\n" min_l e.dist;
+            f := List.Assoc.remove !f min_l;
+            List.iteri e.neighbors ~f:(fun i (label, dist) -> 
+                if not (List.nth_exn g (label-1)).visited then (
+                    if not (List.Assoc.mem !f label) then f := List.Assoc.add !f label (min_d + dist)
+                    else if (List.Assoc.find_exn !f label) > (dist + min_d) then f := List.Assoc.add !f label (min_d + dist)
+            ))
+        end
+
+    (* main loop *)
+    let main fname = 
+        let g = build fname in
+        let f = ref (List.hd_exn g).neighbors in
+        for i = 1 to (List.length g) do step g f done;
+        g
+
+    let required = [7;37;59;82;99;115;133;165;188;197]
+end
