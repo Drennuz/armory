@@ -34,6 +34,7 @@ let rec permtf n = match n with
     1 -> [[true];[false]]
     |_ -> concat (permtf (n-1)) [true;false]
 
+
 let table l exp = 
     let len = List.length l in
     let tflist = permtf len in
@@ -123,6 +124,32 @@ let rec hbal_tree h =
 
 
 (* 49 construct height-balanced trees for a given #nodes *)
+
+let rec minNode h = match h with
+    1 -> 1
+    |2 -> 2
+    |_ -> (minNode (h-1)) + (minNode (h-2))
+
+let maxHeight n = 
+    let rec aux d = 
+        if minNode d > n then (d-1) else aux (d+1)
+        in aux 1
+
+let maxNode h = Int.of_float (2. ** (Float.of_int h) -. 1.)
+
+let minHeight n = 
+    let rec aux d = 
+        if maxNode d >= n then d else aux (d+1)
+        in aux 1
+
+let rec countNode t = match t with
+    Leaf -> 0
+    |Node (_, l, r) -> 1 + (countNode l) + (countNode r)
+
+let hbal_tree_nodes n = 
+    let lenghths = make_range (minHeight n) (maxHeight n) in
+    let l2 = List.fold_left lengths ~init:[] ~f:(fun acc e -> acc @ (hbal e)) in
+    List.filter l2 ~f:(fun e -> (countNode e) = n)
 
 (* 50 count leaves *)
 let rec count_leaves t = match t with

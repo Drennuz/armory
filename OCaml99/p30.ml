@@ -75,6 +75,23 @@ let rec extract n l =
 
 (* 28 *)
 
+let length_sort l = 
+    let l2 = List.map l ~f:(fun e -> (e, List.length e)) in
+    let l3 = List.sort l2 ~cmp:(fun e1 e2 -> Int.compare (snd e1) (snd e2)) in
+    List.map l3 ~f:(fun e -> fst e)
+
+let freq_sort l = 
+    let l2 = List.sort (List.map l ~f:List.length) ~cmp:Int.compare in
+    let rec aux count acc l = match l with
+        [] -> acc
+        |[e] -> (e, count+1) :: acc
+        |a :: (b::_ as t) -> if a = b then aux (count+1) acc t 
+            else aux 0 ((a, count+1)::acc) t
+    in let l3 = aux 0 [] l2 in
+    let l4 = List.map l ~f:(fun e -> let f = List.Assoc.find_exn l3 (List.length e) in (f, e)) in
+    let l5 = List.sort l4 ~cmp:(fun e1 e2 -> Int.compare (fst e1) (fst e2)) in
+    List.map l5 ~f:snd
+
 (* ARITHMATIC *)
 
 (* 29 determine whether a number is prime *)
