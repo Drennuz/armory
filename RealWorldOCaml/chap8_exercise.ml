@@ -25,7 +25,7 @@ struct
             let rec r = 
                 {
                 insert = (fun k v -> contents := (k,v) :: !contents; r);
-                find = (fun x -> List.assoc x !contents)
+                find = (fun x -> List.Assoc.find_exn !contents x)
                 } in
                 r
 end
@@ -81,7 +81,7 @@ struct
     let max = 10000
     let generate n = 
         Random.self_init ();
-        let res = Array.make n 0 in
+        let res = Array.create ~len:n 0 in
         for i = 0 to n-1 do
             res.(i) <- Random.int max
         done;
