@@ -3,16 +3,20 @@
 (* ex 6.1 *)
 type 'a mylist = Nil | Cons of 'a * 'a mylist
 
-let map f ml = 
-    let rec aux res f l = match l with
-        Nil -> res
-        |Cons (h, t) -> aux (Cons (f h, res)) f t
-    in aux Nil f ml
+let rec map f ml = match ml with
+    Nil -> Nil
+    |Cons (h, t) -> Cons (f h, map f t)
 
 (* TODO: tail-recursive version? *)
 let rec append l1 l2 = match l1 with
     Nil -> l2
     |Cons(h,t) -> Cons(h, append t l2)
+
+let rev ml = 
+let rec aux acc l = match l with
+Nil -> acc
+|Cons (h, t) -> aux (Cons(h, acc)) t in
+aux Nil ml
 
 (* ex 6.2 *)
 type unary_number = Z | S of unary_number
@@ -77,13 +81,14 @@ let rec find dic key = match dic with
             else find rt key
 
 (* ex 6.6 *)
-(*type vertex = int
+type vertex = int
 type graph = (vertex, vertex list) dictionary
 
-let reachable g v1 v2 = 
-    let v1_next = find g v1 in
-    List.exists (fun x -> x = v2) v1_next
-*)
+let rec reacheable g v1 v2 = 
+    let neighbors = List.map (find g v1) ~f:snd in
+    if List.mem neighbors v2 then true
+    else List.fold_left neighbors ~init:false ~f:(fun acc e -> acc || (reacheable g e v2))
+
 (* ex 6.7 *)
 type 'a tree = Leaf | Node of 'a * 'a tree * 'a tree
 type comparison = LessThan | Equal | GreaterThan
@@ -125,5 +130,4 @@ let heapsort l =
         Leaf -> res
         |Node(e, l, r) as h -> aux (e :: res) (meld l r) in
     aux [] (heap_from_list l)
-
 
