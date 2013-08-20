@@ -3,3 +3,15 @@
 
 ### Chap2 Persistence
 * append: O(1) in imperative; O(n)
+
+### Chap3
+TODO: binomial heap
+    * binomial tree: rank r+1: linking 2 rank r trees, one as sub left tree; 2**r nodes
+    * binomial heap: list of binomial tree in increasing rank
+    * analagous to binary number; size n --> log(n+1) trees
+
+RB tree
+* empty nodes are considered black
+* no two consecutive red; every path to empty contains equal #black
+* maximum depth: 2log(n+1)
+* balance: rewrite black-red-red as red-black-black
