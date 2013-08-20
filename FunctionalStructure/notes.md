@@ -5,10 +5,12 @@
 * append: O(1) in imperative; O(n)
 
 ### Chap3
-TODO: binomial heap
-    * binomial tree: rank r+1: linking 2 rank r trees, one as sub left tree; 2**r nodes
-    * binomial heap: list of binomial tree in increasing rank
-    * analagous to binary number; size n --> log(n+1) trees
+binomial heap
+* binomial tree: rank r+1: linking 2 rank r trees, one as sub left tree; 2**r nodes
+* binomial heap: list of binomial tree in increasing rank
+* analagous to binary number; size n --> log(n+1) trees; 1s in the binary number -> rank(k) tree
+* possible: insert and merge in O(1)
+* amortized insert: O(1); potential = #binomial trees
 
 RB tree
 * empty nodes are considered black
