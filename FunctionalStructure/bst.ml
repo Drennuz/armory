@@ -10,6 +10,7 @@ module type BSTI = sig
 
     val mem : t -> elem -> bool
     val insert : t -> elem -> t
+    val depth : t -> int
 end
 
 module BST (M:ORDERED) : (BSTI with type elem = M.t) = struct
@@ -18,6 +19,10 @@ module BST (M:ORDERED) : (BSTI with type elem = M.t) = struct
     
     let empty = Leaf
     
+    let rec depth t = match t with
+        Leaf -> 0
+        |Node(_, l, r) -> 1 + (max (depth l) (depth r))
+
     let rec mem t e = match t with  
         Leaf -> false
         |Node (x, l, r) -> if M.compare e x < 0 then mem l e

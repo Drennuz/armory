@@ -13,6 +13,7 @@ module type ITF = sig
     val mem: t -> elem -> bool
     val insert : t -> elem -> t
     val balance : color -> elem -> t -> t -> t
+    val depth : t -> int
 end
 
 module RBT (M:ORDERED) : (ITF with type elem = M.t) = struct
@@ -20,6 +21,10 @@ module RBT (M:ORDERED) : (ITF with type elem = M.t) = struct
     type color = Red | Black
     type t = Leaf | Node of color * elem * t * t
     
+    let rec depth t = match t with
+        Leaf -> 0
+        |Node(_, _, l, r) -> 1 + (max (depth l) (depth r))
+
     let rec mem t e = match t with
         Leaf -> false
         |Node(_, x, l, r) -> if M.compare e x < 0 then mem l e

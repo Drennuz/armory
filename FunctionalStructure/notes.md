@@ -15,3 +15,10 @@ RB tree
 * no two consecutive red; every path to empty contains equal #black
 * maximum depth: 2log(n+1)
 * balance: rewrite black-red-red as red-black-black
+
+### Chap4 Lazy
+* evaluated only when needed; then cached.
+* stream vs lazy list: forcing is incremental vs complete
+* drop & reverse: complete / monolithic
+
+
