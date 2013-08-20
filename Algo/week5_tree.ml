@@ -64,7 +64,7 @@ module Tree (Elem:ORDERED) : (Tree_itf with type elem = Elem.t) = struct
                 Elem.print root;
                 traverse r;
             end
-    
+    (* List.fold_left *) 
     let of_list l = 
         let rec aux t rem = match rem with
             [] -> t

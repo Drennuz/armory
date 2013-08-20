@@ -21,3 +21,5 @@ Parser/Compiler exercise in Python
 
 [OCaml 99 Problems](http://ocaml.org/tutorials/99problems.html)
 -----
+
+[Purely Functional Data Structures](http://www.amazon.com/Purely-Functional-Structures-Chris-Okasaki/dp/0521663504)

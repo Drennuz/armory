@@ -211,3 +211,40 @@
     * map: keep multiple related key/value pairs, more efficient
 
 * Bench.make_command; Command.run 
+
+#### 20 memory representation of values
+
+* type checking at compile time
+* uniform memory representation: int or pointer to int (bottom single bit tag)
+* basic unit of allocation on heap: value (head + data) (int are never allocated on heap)
+    * Obj.is_int (Obj.repr []); Obj.is_block (Obj.repr [1;2])
+    * Obj.tag; Obj.double_tag
+    * optimization for float arrays
+    * List: Head | Cons (pointer to rest)
+    * marker for GC (opaque or not)
+
+#### 21 garbage collector
+
+* generational:
+    * for small variables in use for a short time
+    * small minor heap | large major heap
+* fast minor heap: (2 mb; Core: 8mb)
+    * constant time allocating
+    * gc: copy-collecting live blocks to major heap
+* major heap:
+    * allocate: free-list; expansion; large values directly on major heap 
+    * gc: mark-and-sweep
+        mark -> sweep -> compact
+        mark: color bits; incrementally in slice; DFS
+    * write barrier: may be slower than immutable data structure
+
+#### 22 Compiler frontend
+
+* parsing -> syntax extension -> untyped AST -> typed AST 
+* ocp-indent | ocamldoc
+* preprocessing: camlp4
+* type checking : 
+    * auto type inference
+        * Hindley-Milner algorithm
+    * module
+    * subtyping
