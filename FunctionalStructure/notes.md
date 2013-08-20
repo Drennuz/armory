@@ -21,4 +21,7 @@ RB tree
 * stream vs lazy list: forcing is incremental vs complete
 * drop & reverse: complete / monolithic
 
+### Chap5 Amortization
+* physicist method: potential = length of rear list
+
 
