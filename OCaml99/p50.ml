@@ -1,5 +1,7 @@
 (* string representation of binary trees *)
 
+type 'a btree = Leaf | Node of 'a * 'a btree * 'a btree
+
 let string_of_btree t = 
     let b = Buffer.create 128 in
     let rec aux b t = 
@@ -141,3 +143,15 @@ let lispy t =
         |_ -> (Buffer.add_char b '('; Buffer.add_char b x;List.iter l ~f:(fun e -> aux b e); Buffer.add_char b ')'))
     in aux b t;
     Buffer.contents b
+
+(* complete balance tree *)
+type 'a btree = Leaf | Node of 'a * 'a btree * 'a btree
+
+let is_complete_tree t n = 
+    let a = Array.create ~len:n None and n = ref 1 in
+    let rec aux start t = match t with
+    Leaf -> true
+    |Node(x, l, r) -> if start >= 2 && (a.(start-2) = None) then false
+        else (a.(start-1) <- Some x; aux (2*start) l; aux (2*start + 1) r)
+    in aux 1 t
+
