@@ -26,5 +26,4 @@ Parser/Compiler exercise in Python
 -----
 
 [Programming Languages](http://courses.cs.washington.edu/courses/cse341/13sp/#all)
-
 -----
