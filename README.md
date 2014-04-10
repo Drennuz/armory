@@ -25,6 +25,6 @@ Parser/Compiler exercise in Python
 [Purely Functional Data Structures](http://www.amazon.com/Purely-Functional-Structures-Chris-Okasaki/dp/0521663504)
 -----
 
-[Expert Python Programming](http://www.amazon.com/)
+[Programming Languages](http://courses.cs.washington.edu/courses/cse341/13sp/#all)
 
 -----
